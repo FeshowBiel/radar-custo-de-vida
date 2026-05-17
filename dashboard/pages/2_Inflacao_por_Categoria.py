@@ -1,8 +1,7 @@
 """Inflação por categoria — barras horizontais e evolução histórica."""
 import plotly.express as px
 import streamlit as st
-
-from dashboard.lib.queries import inflacao_por_categoria
+from lib.queries import inflacao_por_categoria
 
 st.set_page_config(page_title="Inflação por Categoria", layout="wide")
 st.title("Inflação por Categoria")

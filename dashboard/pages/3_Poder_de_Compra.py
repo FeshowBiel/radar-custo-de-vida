@@ -1,8 +1,7 @@
 """Poder de compra do salário mínimo + simulador interativo."""
 import plotly.graph_objects as go
 import streamlit as st
-
-from dashboard.lib.queries import poder_de_compra
+from lib.queries import poder_de_compra
 
 st.set_page_config(page_title="Poder de Compra", layout="wide")
 st.title("Poder de Compra do Salário Mínimo")

@@ -3,8 +3,7 @@ import json
 
 import plotly.graph_objects as go
 import streamlit as st
-
-from dashboard.lib.queries import previsao_ipca, previsao_metadata
+from lib.queries import previsao_ipca, previsao_metadata
 
 st.set_page_config(page_title="Projeção IPCA", layout="wide")
 st.title("Projeção do IPCA")

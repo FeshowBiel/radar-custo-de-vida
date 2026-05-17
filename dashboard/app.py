@@ -1,7 +1,6 @@
 """Radar do Custo de Vida no Brasil — página inicial."""
 import streamlit as st
-
-from dashboard.lib.queries import inflacao_por_categoria, ipca_acumulado_12m, poder_de_compra
+from lib.queries import inflacao_por_categoria, ipca_acumulado_12m, poder_de_compra
 
 st.set_page_config(
     page_title="Radar do Custo de Vida no Brasil",

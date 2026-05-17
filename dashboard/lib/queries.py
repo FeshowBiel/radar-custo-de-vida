@@ -1,24 +1,40 @@
 """Acesso a dados para o dashboard, com cache do Streamlit."""
 import os
+from pathlib import Path
 
 import pandas as pd
 import streamlit as st
 from sqlalchemy import create_engine
 
+# .env fica na raiz do projeto (dois níveis acima deste arquivo:
+# dashboard/lib/queries.py -> projeto/). Resolvido por caminho absoluto
+# para funcionar independente do CWD com que o Streamlit foi iniciado.
+_PROJECT_ROOT = Path(__file__).resolve().parents[2]
+_ENV_PATH = _PROJECT_ROOT / ".env"
+
 
 def _database_url() -> str:
+    # Precedência: variável de ambiente / .env (local) -> st.secrets (Streamlit Cloud).
+    # Checamos .env primeiro de propósito: acessar st.secrets["..."] sem um
+    # secrets.toml faz o Streamlit renderizar caixas de erro na página, mesmo
+    # que o Python capture a exceção. No deploy não há .env, então cai no secrets.
+    from dotenv import load_dotenv
+
+    if _ENV_PATH.exists():
+        load_dotenv(_ENV_PATH)
+    else:
+        load_dotenv()
+
+    url = os.environ.get("DATABASE_URL", "")
+    if url:
+        return url
+
     try:
         return st.secrets["DATABASE_URL"]
     except Exception:
-        from dotenv import load_dotenv
-
-        load_dotenv()
-        url = os.environ.get("DATABASE_URL", "")
-        if not url:
-            raise RuntimeError(  # noqa: B904
-                "DATABASE_URL não definida. Verifique .env ou st.secrets."
-            )
-        return url
+        raise RuntimeError(  # noqa: B904
+            "DATABASE_URL não definida. Verifique .env ou st.secrets."
+        )
 
 
 @st.cache_resource

@@ -1,8 +1,7 @@
 """Panorama — série histórica do IPCA mensal e acumulado 12m."""
 import plotly.graph_objects as go
 import streamlit as st
-
-from dashboard.lib.queries import ipca_acumulado_12m, ipca_mensal
+from lib.queries import ipca_acumulado_12m, ipca_mensal
 
 st.set_page_config(page_title="Panorama IPCA", layout="wide")
 st.title("Panorama da Inflação")

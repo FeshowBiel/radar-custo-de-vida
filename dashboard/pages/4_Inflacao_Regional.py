@@ -1,8 +1,7 @@
 """Inflação regional por localidade (dados IBGE)."""
 import plotly.express as px
 import streamlit as st
-
-from dashboard.lib.queries import inflacao_regional
+from lib.queries import inflacao_regional
 
 st.set_page_config(page_title="Inflação Regional", layout="wide")
 st.title("Inflação Regional")
