@@ -1,0 +1,20 @@
+[project]
+name = "radar-custo-de-vida"
+version = "1.0.0"
+description = "Pipeline de dados economicos com projecao de inflacao"
+requires-python = ">=3.11"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W", "UP", "B"]
+
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
