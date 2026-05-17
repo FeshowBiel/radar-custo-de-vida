@@ -40,7 +40,11 @@ def run(meses: int = 12) -> dict:
 
     previsao = prever(df, meses=meses)
 
-    historico = df.assign(tipo="historico", limite_inferior=None, limite_superior=None)
+    historico = df.assign(
+        tipo="historico",
+        limite_inferior=pd.Series(dtype="float64"),
+        limite_superior=pd.Series(dtype="float64"),
+    )
     previsto = previsao.assign(tipo="previsto")
 
     completo = pd.concat(
