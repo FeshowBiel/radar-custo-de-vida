@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: raw
+    tables:
+      - name: bcb_series
+        columns:
+          - name: codigo_serie
+            data_tests: [not_null]
+          - name: data_referencia
+            data_tests: [not_null]
+      - name: ibge_ipca_regional

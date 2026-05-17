@@ -1,0 +1,28 @@
+version: 2
+
+sources:
+  - name: marts_ml
+    schema: marts
+    tables:
+      - name: previsao_ipca_raw
+
+models:
+  - name: dim_tempo
+    columns:
+      - name: data_referencia
+        data_tests: [unique, not_null]
+
+  - name: mart_inflacao_por_categoria
+    columns:
+      - name: categoria
+        data_tests: [not_null]
+      - name: inflacao_acumulada_ano
+        data_tests:
+          - dbt_utils.accepted_range:
+              min_value: -50
+              max_value: 300
+
+  - name: mart_poder_compra_salario
+    columns:
+      - name: data_referencia
+        data_tests: [unique, not_null]

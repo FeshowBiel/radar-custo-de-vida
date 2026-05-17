@@ -1,0 +1,7 @@
+version: 2
+
+models:
+  - name: stg_bcb__series
+    columns:
+      - name: valor
+        data_tests: [not_null]
