@@ -63,3 +63,31 @@ produção é a `DATABASE_URL` e o `sslmode`.
 **Por que:** Evita dependência de ordem de execução (dbt precisa ter rodado ao menos
 uma vez antes do ML). A view de staging apenas filtra `valor IS NOT NULL` e renomeia
 colunas — a mesma lógica cabe em uma linha SQL no módulo Python.
+
+---
+
+## ADR-7: requirements.txt enxuto separado do pipeline
+
+**Decisão:** `requirements.txt` contém só o runtime do dashboard
+(streamlit, plotly, pandas, sqlalchemy, psycopg2, dotenv). Pipeline e ML
+(httpx, tenacity, dbt-core, statsmodels, scikit-learn) ficam em
+`requirements-pipeline.txt`.
+
+**Por que:** O Streamlit Community Cloud instala o `requirements.txt` da raiz.
+Incluir dbt-core + statsmodels + scikit-learn (e suas dezenas de deps
+transitivas) fazia o build do deploy levar 15+ minutos / travar, sendo que
+o dashboard apenas lê tabelas prontas do Postgres — não importa nenhuma
+dessas bibliotecas. O CI (`pip install -r requirements-pipeline.txt`) e o
+ambiente local (`requirements-dev.txt`) continuam com o conjunto completo.
+
+---
+
+## ADR-8: batch no executemany para Postgres remoto
+
+**Decisão:** O engine SQLAlchemy usa `executemany_mode="values_plus_batch"`.
+
+**Por que:** Contra um Postgres remoto (Neon), o `executemany` linha-a-linha
+padrão do psycopg2 fazia a série diária da Selic (~7,4k linhas) levar 20+
+minutos — estourando o timeout de 15 min do job de ingestão no GitHub
+Actions. Com batching (`execute_batch`), a ingestão completa das 15 séries
+caiu para ~44 s.

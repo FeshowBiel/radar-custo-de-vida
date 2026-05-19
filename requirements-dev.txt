@@ -1,4 +1,4 @@
--r requirements.txt
+-r requirements-pipeline.txt
 pytest==8.3.3
 pytest-mock==3.14.0
 ruff==0.7.1

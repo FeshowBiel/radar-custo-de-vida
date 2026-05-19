@@ -121,6 +121,15 @@ radar-custo-de-vida/
 └── .github/workflows/  # CI/CD mensal
 ```
 
+## Dependências
+
+| Arquivo | Uso |
+|---------|-----|
+| `requirements.txt` | Runtime do dashboard (enxuto). Streamlit Cloud instala este. |
+| `requirements-pipeline.txt` | Pipeline completo (ingestão + dbt + ML). GitHub Actions usa este. |
+| `requirements-dev.txt` | Pipeline + testes/lint. Use localmente. |
+| `requirements-extra.txt` | Prophet (opcional). |
+
 ## Deploy em produção
 
 Veja [docs/deploy.md](docs/deploy.md) para o checklist completo (Neon + Streamlit Cloud + GitHub Secrets).
