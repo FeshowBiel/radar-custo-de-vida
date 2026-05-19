@@ -1,8 +1,21 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "radar-custo-de-vida"
 version = "1.0.0"
 description = "Pipeline de dados economicos com projecao de inflacao"
 requires-python = ">=3.11"
+
+# O Streamlit Cloud usa o instalador `uv`. Com um [project] presente, o uv
+# entra em "modo projeto" e tenta buildar o pacote; sem [build-system] +
+# config de pacotes isso falha com "Error installing requirements" mesmo
+# o requirements.txt estando correto. py-modules = [] torna o build trivial
+# (nenhum módulo a empacotar) — o app roda do código-fonte clonado, não
+# precisa ser instalado como pacote.
+[tool.setuptools]
+py-modules = []
 
 [tool.ruff]
 line-length = 100
