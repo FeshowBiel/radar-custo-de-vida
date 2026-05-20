@@ -17,3 +17,5 @@ dbt_project/.user.yml
 .streamlit/secrets.toml
 ml/artifacts/
 *.pbix.lock
+*.egg-info/
+build/
