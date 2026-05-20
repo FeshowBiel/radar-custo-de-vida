@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "radar-custo-de-vida"
 version = "1.0.0"
 description = "Pipeline de dados economicos com projecao de inflacao"
-requires-python = ">=3.11"
+requires-python = ">=3.11,<3.14"
 
 # O Streamlit Cloud usa o instalador `uv`. Com um [project] presente, o uv
 # entra em "modo projeto" e tenta buildar o pacote; sem [build-system] +
